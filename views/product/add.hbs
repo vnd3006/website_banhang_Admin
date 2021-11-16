@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Thêm sản phẩm mới</div>
+        <div class="card-body">
+        <form method="POST" action="/product/add">
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                            <input type="text" name="ten" id="ten" class="form-control" placeholder="Tên sản phẩm" required="required" autofocus="autofocus">
+                            <label for="ten">Tên sản phẩm</label>
+                        </div>
+                    </div>
+                       <div class="col-md-6">
+                        <div class="form-label-group">
+                            <input type="text" name="loai" id="loai" class="form-control" placeholder="Thương hiệu" required="required" autofocus="autofocus">
+                            <label for="loai">Thương hiệu</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                            <input type="text" name="ma" id="ma" class="form-control" placeholder="Mã sản phẩm" required="required">
+                            <label for="ma">Mã sản phẩm</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-label-group">
+                            <input type="number" name="soLuong" id="soLuong" class="form-control" placeholder="Số lượng" required="required">
+                            <label for="soLuong">Số lượng</label>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-label-group">
+                        <input type="number" name="gia" id="gia" class="form-control" placeholder="Giá" required="required">
+                        <label for="gia">Giá</label>
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-label-group">
+                        <input type="text" name="hinhAnh" id="hinhAnh" class="form-control" placeholder="URL hình ảnh" required="required">
+                        <label for="hinhAnh">URL hình ảnh</label>
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fa fa-plus"></i> Thêm sản phẩm
+            </button>
+        </form>
+      </div>
+    </div>
+</div>
