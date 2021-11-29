@@ -1,19 +1,13 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const order = require('../controllers/order');
 
-/* GET home page. */
-router.get('/delivered', function(req, res, next) {
-  res.render('order/delivered');
-});
+router.get('/delivery', order.delivery);//Chưa giao hàng
+router.get('/delivery/:id', order.delivery_detail);
 
-router.get('/delivery', function(req, res, next) {
-    res.render('order/delivery');
-  });
+router.get('/delivered', order.delivered);//Đã giao hàng
+router.get('/delivered/:id', order.delivered_detail);
 
-  router.get('/delivering', function(req, res, next) {
-    res.render('order/delivering');
-  });
+router.get('/deliver/:id', order.deliver);//Giao hàng
 
-
-  
 module.exports = router;

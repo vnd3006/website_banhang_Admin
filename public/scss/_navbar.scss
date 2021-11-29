@@ -109,7 +109,7 @@
     &.toggled {
       overflow: visible;
       width: $sidebar-collapsed-width !important;
-      @include sidebar-icons
+      @include sidebar-icons;
     }
   }
 }

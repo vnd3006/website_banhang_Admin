@@ -18,24 +18,23 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                    <th>Email người đặt hàng</th>
-                    <th>Người nhận hàng</th>
+                    <th>UserID</th>
                     <th>Số điện thoại người nhận hàng</th>
                     <th>Địa chỉ giao hàng</th>
-                    <th>Ngày đặt hàng</th>
-                    <th>Danh sách hàng hóa khách hàng đặt</th>
-                    <th>Xác nhận đã giao</th>
+                    <th>Lời nhắn</th>
+                    <th>Tổng tiền</th>
+                    <th>Danh sách hàng hóa khách hàng mua</th>
                 </tr>
               </thead>
               <tbody>
                 {{#if data}}
                 {{#each data}}
                 <tr>
-                    <th scope="row">{{this.email}}</th>
-                    <td>{{this.nguoiNhan}}</td>
-                    <td>{{this.sdtNguoiNhan}}</td>
-                    <td>{{this.diaChiNhan}}</td>
-                    <td>{{this.time}}</td>
+                    <th scope="row">{{this.userId}}</th>
+                    <td>{{this.phoneNumber}}</td>
+                    <td>{{this.address}}</td>
+                    <td>{{this.message}}</td>
+                    <td>{{this.totalPrice}}</td>
                     <td><a href="/order/delivery/{{this._id}}">Danh sách mặt hàng</a></td>
                     <td><a href="/order/deliver/{{this._id}}">Xác nhận đã giao hàng</a></td>
                 </tr>

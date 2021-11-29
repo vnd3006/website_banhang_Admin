@@ -21,7 +21,7 @@ body.sidebar-toggled {
   }
   @media (min-width: 768px) {
     footer.sticky-footer {
-      width: calc(100% - #{$sidebar-collapsed-width})
+      width: calc(100% - #{$sidebar-collapsed-width});
     }
   }
 }

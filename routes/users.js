@@ -1,21 +1,13 @@
 var express = require('express');
 var router = express.Router();
+const user = require('../controllers/users');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.render('users/list');
-});
+router.get('/', user.list );
 
-router.get('/lock_list', function(req, res, next) {
-  res.render('users/lockList');
-});
+router.get('/lock_list', user.lock_list );
+router.get('/lock/:id', user.lock );
 
-router.get('/unlock_list', function(req, res, next) {
-  res.render('users/unlockList');
-});
-
-router.get('/detail', function(req, res, next) {
-  res.render('users/detail');
-});
+router.get('/unlock_list', user.unlock_list );
+router.get('/unlock/:id', user.unlock );
 
 module.exports = router;

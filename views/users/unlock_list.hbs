@@ -3,7 +3,7 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="#">Chỉnh sửa sản phẩm</a>
+          <a href="#">Mở khóa người dùng</a>
         </li>
       </ol>
 
@@ -11,21 +11,19 @@
       <div class="card mb-3">
           <div class="card-header">
               <i class="fas fa-table"></i>
-              Danh sách sản phẩm
+              Danh sách người dùng
           </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-               <thead>
+              <thead>
                 <tr>
-                    <th>Mã sản phẩm</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Giá (VNĐ)</th>
-                    <th>Mô tả</th>
-                    <th>Giảm giá</th>
-                    <th>Lượt xem</th>
-                    <th>ID Danh mục</th>
+                    <th>ID</th>
+                    <th>Họ Tên</th>
+                    <th>Email</th>
+                    <th>Username</th>
                     <th>Chọn</th>
+                    
                 </tr>
               </thead>
               <tbody>
@@ -33,13 +31,10 @@
                 {{#each data}}
                 <tr>
                     <th scope="row">{{this.id}}</th>
-                    <td>{{this.name}}</td>   
-                    <td>{{this.price}}</td>
-                    <td>{{this.content}}</td>
-                    <td>{{this.discount}}</td>
-                    <td>{{this.view}}</td>
-                    <td>{{this.catalogId}}</td>
-                    <td><button type="button"><a href="/product/{{this._id}}">Sửa</a></button></td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.username}}</td>
+                    <td><button type="button"><a href="/users/unlock/{{this._id}}">Mở khóa</a></button></td>
                 </tr>
                 {{/each}}
                 {{/if}}
@@ -51,5 +46,3 @@
     </div>
   </div>
 </div>
-
-                 

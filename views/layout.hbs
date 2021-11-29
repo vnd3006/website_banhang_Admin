@@ -49,7 +49,7 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/home">
+        <a class="nav-link" href="/">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Trang chủ</span>
         </a>
@@ -91,7 +91,6 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <a class="dropdown-item" href="/order/delivered">Đơn hàng đã giao</a>
-          <a class="dropdown-item" href="/order/delivering">Đơn hàng đang giao</a>
           <a class="dropdown-item" href="/order/delivery">Đơn hàng chưa giao</a>
           <div class="dropdown-divider"></div>
         </div>
@@ -102,7 +101,7 @@
           <span>Thống kê</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <a class="dropdown-item" href="/bestSeller">Top sản phẩm bán chạy</a>
+          <a class="dropdown-item" href="/report/top">Top sản phẩm bán chạy</a>
           <div class="dropdown-divider"></div>
         </div>
       </li>
@@ -112,9 +111,10 @@
           <span>Quản lý quản trị viên</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <a class="dropdown-item" href="/authentication/detail">Thông tin tài khoản</a>
-          <a class="dropdown-item" href="/">
-            <button type="button" class="btn btn-primary">Đăng xuất</button></a>
+          <a class="dropdown-item" href="/admin/signUp">Tạo tài khoản</a>
+          <a class="dropdown-item" href="/admin/signIn">Đăng nhập</a>
+          <a class="dropdown-item" href="#">Chi tiết tài khoản</a>
+          <div class="dropdown-divider"></div>
         </div>
       </li>     
     </ul>
@@ -155,7 +155,7 @@
   <!-- Confirm Password -->
   <script src="../../js/code.js"></script>
 
-  {{!-- {{{block "scripts"}}} --}}
+  {{{block "scripts"}}}
 
 </body>
 

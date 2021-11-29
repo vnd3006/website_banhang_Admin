@@ -3,7 +3,7 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="#">Chỉnh sửa sản phẩm</a>
+          <a href="#">Top 10 sản phẩm bán chạy nhất</a>
         </li>
       </ol>
 
@@ -11,12 +11,12 @@
       <div class="card mb-3">
           <div class="card-header">
               <i class="fas fa-table"></i>
-              Danh sách sản phẩm
+              Danh sách 10 sản phẩm bán chạy nhất
           </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-               <thead>
+              <thead>
                 <tr>
                     <th>Mã sản phẩm</th>
                     <th>Tên sản phẩm</th>
@@ -25,7 +25,6 @@
                     <th>Giảm giá</th>
                     <th>Lượt xem</th>
                     <th>ID Danh mục</th>
-                    <th>Chọn</th>
                 </tr>
               </thead>
               <tbody>
@@ -39,7 +38,6 @@
                     <td>{{this.discount}}</td>
                     <td>{{this.view}}</td>
                     <td>{{this.catalogId}}</td>
-                    <td><button type="button"><a href="/product/{{this._id}}">Sửa</a></button></td>
                 </tr>
                 {{/each}}
                 {{/if}}
@@ -51,5 +49,3 @@
     </div>
   </div>
 </div>
-
-                 
