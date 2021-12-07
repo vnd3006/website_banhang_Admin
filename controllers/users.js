@@ -5,6 +5,7 @@ exports.list = async (req, res, next) => {
     res.render('users/list', { data })
 };
 
+
 exports.lock_list = async (req, res, next) => {
     const data = await user.list();
     res.render('users/lock_list', { data })

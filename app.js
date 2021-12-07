@@ -1,19 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
-var hbs = require('hbs');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var favicon = require('serve-favicon');
+const createError = require('http-errors');
+const express = require('express');
+const hbs = require('hbs');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const favicon = require('serve-favicon');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var productRouter = require('./routes/product');
-var adminRouter = require('./routes/admin');
-var orderRouter = require('./routes/order');
-var reportRouter = require('./routes/report');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const productRouter = require('./routes/product');
+const adminRouter = require('./routes/admin');
+const orderRouter = require('./routes/order');
+const reportRouter = require('./routes/report');
 
-var app = express();
+const session = require('express-session')
+const passport = require('./auth/passport')
+
+const app = express();
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
@@ -21,10 +24,10 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-var blocks = {};
+const blocks = {};
 
 hbs.registerHelper('extend', function(name, context) {
-  var block = blocks[name];
+  const block = blocks[name];
   if (!block) {
     block = blocks[name] = [];
   }
@@ -33,7 +36,7 @@ hbs.registerHelper('extend', function(name, context) {
 });
 
 hbs.registerHelper('block', function(name) {
-  var val = (blocks[name] || []).join('\n');
+  const val = (blocks[name] || []).join('\n');
 
   // clear the block
   blocks[name] = [];
@@ -45,6 +48,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({ secret: "cats" }))
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.use(function (req, res, next) {
+  res.locals.user = req.user
+  // res.locals.authenticated = !req.user.anonymous
+  next()
+})
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

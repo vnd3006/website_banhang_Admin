@@ -111,9 +111,14 @@
           <span>Quản lý quản trị viên</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <a class="dropdown-item" href="/admin/signUp">Tạo tài khoản</a>
+          {{#if user}}
+          <a class="dropdown-item" href="/admin/logOut">Đăng Xuất</a>
+          <a class="dropdown-item" href="/admin/detail">Chi tiết tài khoản</a>
+          <a class="dropdown-item" href="/admin/list">Danh sách Admin</a>
+          {{else}}
           <a class="dropdown-item" href="/admin/signIn">Đăng nhập</a>
-          <a class="dropdown-item" href="#">Chi tiết tài khoản</a>
+          <a class="dropdown-item" href="/admin/signUp">Đăng kí</a>
+          {{/if}}
           <div class="dropdown-divider"></div>
         </div>
       </li>     

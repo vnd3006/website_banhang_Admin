@@ -1,0 +1,41 @@
+<div id="content-wrapper">
+  <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Danh sách Admin</a>
+        </li>
+      </ol>
+
+      <!-- DataTables -->
+      <div class="card mb-3">
+          <div class="card-header">
+              <i class="fas fa-table"></i>
+              Danh sách Admin
+          </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                    <th>Họ Tên</th>
+                    <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#if data}}
+                {{#each data}}
+                <tr>
+                    <th scope="row">{{this.name}}</th>
+                    <td>{{this.username}}</td>
+                </tr>
+                {{/each}}
+                {{/if}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
