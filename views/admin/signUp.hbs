@@ -1,8 +1,10 @@
 <div class="container">
     <div class="card card-register mx-auto mt-5">
         <div class="card-header">Đăng kí tài khoản</div>
+         
         <div class="card-body">
             <form method="post" action="/admin/signUp">
+                <p class="warningLogin">{{thongBao}}</p>
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
@@ -13,6 +15,18 @@
                         </div>
                     </div>
                 </div>
+       
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email" required="required" autofocus="autofocus">
+                                <label for="email">Email address</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
@@ -23,6 +37,7 @@
                         </div>
                     </div>
                 </div>
+           
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
@@ -46,8 +61,12 @@
                 <button type="submit" class="btn btn-primary btn-block">
                     <i class="fa fa-plus"></i> Đăng kí ngay
                 </button>
+                <div class="d-flex justify-content-end mt-4">
+                    <div>Bạn đã có tài khoản? </div>
+                    <a href="/admin/SignIn" class="ml-2">Đăng nhập</a>
+                </div>
             </form>
-            <p>{{thongBao}}</p>
+           
         </div>
     </div>
 </div>

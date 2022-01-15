@@ -19,6 +19,7 @@
   <!-- Custom styles for this template-->
   <link href="../../css/sb-admin.css" rel="stylesheet">
 
+
 </head>
 
 <body id="page-top">
@@ -32,7 +33,7 @@
     </button>
 
     <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+    {{!-- <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="basic-addon2">
         <div class="input-group-append">
@@ -41,7 +42,17 @@
           </button>
         </div>
       </div>
-    </form>
+    </form> --}}
+    {{#if user}}
+    <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 ">
+      <a href="/admin/detail" class="titleHello">Xin chào {{user.name}}</a> 
+      <a class="btn btn-primary ml-4" href="/admin/logOut">Đăng xuất</a>
+    </div>
+    {{else}}
+      <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 ">
+        <a class="btn btn-primary ml-4" href="/admin/SignIn">Đăng nhập</a>
+      </div>
+    {{/if}}
   </nav>
 
   <div id="wrapper">
@@ -105,23 +116,24 @@
           <div class="dropdown-divider"></div>
         </div>
       </li>
+       {{#if user}}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
           <span>Quản lý quản trị viên</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          {{#if user}}
-          <a class="dropdown-item" href="/admin/logOut">Đăng Xuất</a>
+         
           <a class="dropdown-item" href="/admin/detail">Chi tiết tài khoản</a>
           <a class="dropdown-item" href="/admin/list">Danh sách Admin</a>
-          {{else}}
+          {{!-- {{else}}
           <a class="dropdown-item" href="/admin/signIn">Đăng nhập</a>
-          <a class="dropdown-item" href="/admin/signUp">Đăng kí</a>
-          {{/if}}
+          <a class="dropdown-item" href="/admin/signUp">Đăng kí</a> --}}
+          
           <div class="dropdown-divider"></div>
         </div>
-      </li>     
+      </li>  
+      {{/if}}   
     </ul>
     <div id="content-wrapper">
 

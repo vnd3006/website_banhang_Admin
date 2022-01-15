@@ -20,7 +20,7 @@
     <div class="card mb-3">
         <div class="card-header">
         <i class="fas fa-table"></i>
-        Data Table Example</div>
+        Danh sách sản phẩm</div>
         <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -31,7 +31,7 @@
                     <th>Giá (VNĐ)</th>
                     <th>Mô tả</th>
                     <th>Giảm giá</th>
-                    <th>Lượt xem</th>
+                    <th>Đã bán</th>
                     <th>ID Danh mục</th>
                 </tr>
               </thead>
@@ -44,8 +44,8 @@
                     <td>{{this.price}}</td>
                     <td>{{this.content}}</td>
                     <td>{{this.discount}}</td>
-                    <td>{{this.view}}</td>
-                    <td>{{this.catalogId}}</td>
+                    <td>{{this.soldCount}}</td>
+                    <td>{{this.categoryId}}</td>
                 </tr>
                 {{/each}}
                 {{/if}}

@@ -23,7 +23,7 @@
                     <th>Giá (VNĐ)</th>
                     <th>Mô tả</th>
                     <th>Giảm giá</th>
-                    <th>Lượt xem</th>
+                    <th>Đã bán</th>
                     <th>ID Danh mục</th>
                     <th>Chọn</th>
                 </tr>
@@ -37,8 +37,8 @@
                     <td>{{this.price}}</td>
                     <td>{{this.content}}</td>
                     <td>{{this.discount}}</td>
-                    <td>{{this.view}}</td>
-                    <td>{{this.catalogId}}</td>
+                    <td>{{this.soldCount}}</td>
+                    <td>{{this.categoryId}}</td>
                     <td><button type="button"><a href="/product/{{this._id}}">Sửa</a></button></td>
                 </tr>
                 {{/each}}

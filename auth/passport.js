@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
 
@@ -5,7 +7,6 @@ const {dbs} = require('../dbs')
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-      console.log("check");
 
       dbs.production.collection('admin').findOne({ username: username }, function (err, user) {
         if (err) { return done(err); }
@@ -13,6 +14,8 @@ passport.use(new LocalStrategy(
           return done(null, false, { message: 'Incorrect username.' });
         }
         if (!validPassword(user, password)) {
+          console.log(password);
+          console.log("check pass");
           return done(null, false, { message: 'Incorrect password.' });
         }
         return done(null, user);
@@ -21,23 +24,22 @@ passport.use(new LocalStrategy(
 ));
 
 function validPassword(user, password){
-    return user.password == password;
+
+  return bcrypt.compareSync(password, user.password);
 }
 
 
 
-
-
 passport.serializeUser(function(user, done) {
-    done(null, {username: user.username, name: user.name});
+
+    done(null, {username: user.username, name: user.name, email: user.email, id: user._id});
+    
+    
   });
   
-  passport.deserializeUser(function(user, done) {
-    // dbs.production.collection('admin').findOne({ _id: id }, function(err, user) {
-    //   done(err, user);
-    // });
-    return done(null, user)
-  });
+passport.deserializeUser(function(user, done) {
+  return done(null, user)
+});
 
 
 module.exports = passport;

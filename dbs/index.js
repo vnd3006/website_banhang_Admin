@@ -7,7 +7,7 @@ var dbs = {production: {}};
 
 function connect(url) {
   console.log("object");
-  return MongoClient.connect(url, {useNewUrlParser: true}).then(client => client.db('salesweb'))
+  return MongoClient.connect(url, {useNewUrlParser: true}).then(client => client.db('mihishop'))
 }
 
 exports.initdb = async function () {

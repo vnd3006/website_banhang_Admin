@@ -11,13 +11,18 @@ exports.add = (req, res, next) => {
 
 exports.addPost = async (req, res, next) => {
     const data = {
-        name:req.body.name,
-        catalogId:req.body.catalogId,
         id:req.body.id,
-        price:Number(req.body.price),
-        discount:Number(req.body.discount),
+        categoryId:req.body.categoryId,
+        name:req.body.name,
         content:req.body.content,
-        imageLink:req.body.imageLink
+        price:Number(req.body.price),
+        discount:req.body.discount/100,
+        soldCount: Number(0),
+        rateCount: Number(0),
+        rate: [],
+        comment: [],
+        imageLink:req.body.imageLink,
+        show: true,
     }
     await product.add(data);
     res.redirect('./');
@@ -49,7 +54,7 @@ exports.updatePost = async (req, res, next) => {
     const id = req.params['id'];
     const data = {
         name:req.body.name,
-        catalogId:req.body.catalogId,
+        categoryId:req.body.categoryId,
         id:req.body.id,
         price:Number(req.body.price),
         discount:Number(req.body.discount),

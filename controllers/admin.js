@@ -21,23 +21,32 @@ exports.signUpPost = async (req, res, next) => {
     const hashPassword = bcrypt.hashSync(body.password, 10); 
     const data = {
         name:body.name,
+        email: body.email,
         username:body.username,
         password:hashPassword
     }
     const listUser = await admin.list();
     let count = 0;
+    let mail = 0;
         for(let i=0;i<listUser.length;i++){
             if(listUser[i].username == data.username) {
-                console.log("tontai");
                 count++;
+                
+                break;
+            }
+            if(listUser[i].email == data.email) {
+                mail++;
                 break;
             }
         }
-        if(count == 0){
+        if(count == 0 && mail ==  0){
             await admin.add(data);
             res.render('admin/signIn')
         }
-        else{
+        else if(count == 0 && mail!=0) {
+            const thongBao = 'Email đã tồn tại'
+            res.render('admin/signUp', {thongBao})
+        } else{
             const thongBao = 'Tên Đăng nhập đã tồn tại'
             res.render('admin/signUp', {thongBao})
         }   
@@ -46,8 +55,23 @@ exports.signUpPost = async (req, res, next) => {
 
 
 exports.signIn = async (req, res, next) => {
-    res.render('admin/signIn')
+    res.render('admin/signIn', {wrongPassword: req.query.wrongPassword !== undefined})
 };
+
+exports.forgotPassword = async (req, res) =>{
+    res.render('admin/forgotPassword')
+}
+
+exports.updateiInfor = async (req,res) =>{
+
+    const id = req.user.id;
+    const infor = {
+        name: req.body.name
+    }
+    await admin.update(id,infor);
+    req.user.name = req.body.name
+    res.redirect('/')
+}
 
 // exports.signInPost = async (req, res, next) => {
 //     console.log("123");

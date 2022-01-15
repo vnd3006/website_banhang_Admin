@@ -15,6 +15,8 @@ const reportRouter = require('./routes/report');
 
 const session = require('express-session')
 const passport = require('./auth/passport')
+const auth = require('./auth/authRouter')
+const flash = require('express-flash')
 
 const app = express();
 
@@ -49,6 +51,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(flash())
 app.use(session({ secret: "cats" }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -60,12 +63,14 @@ app.use(function (req, res, next) {
   next()
 })
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/product', productRouter);
 app.use('/admin', adminRouter);
-app.use('/order', orderRouter);
-app.use('/report', reportRouter);
+app.use('/',auth, indexRouter);
+app.use('/users',auth, usersRouter);
+app.use('/product',auth, productRouter);
+
+app.use('/order',auth, orderRouter);
+app.use('/report',auth, reportRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
