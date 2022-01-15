@@ -15,6 +15,8 @@ router.get('/detail', admin.detail );
 router.post('/detail',admin.updateiInfor)
 
 router.get('/forgotPassword', admin.forgotPassword)
+router.get('/changePassword',admin.changePassword)
+router.post('/changePassword',admin.changePasswordPost)
 
 router.get('/signIn', admin.signIn);
 // router.post('/signIn', admin.signInPost);

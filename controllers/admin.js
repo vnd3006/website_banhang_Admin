@@ -62,6 +62,31 @@ exports.forgotPassword = async (req, res) =>{
     res.render('admin/forgotPassword')
 }
 
+exports.changePassword = async (req,res) =>{
+    res.render('admin/changePassword')
+}
+
+exports.changePasswordPost = async(req,res) =>{
+    const pass = req.body.password
+    const account = await admin.detail(req.user.id)
+    const checkpass = bcrypt.compareSync(pass, account[0].password)
+    if(checkpass){
+        const hashPassword = bcrypt.hashSync(req.body.newpassword, 10); 
+        const infor ={
+           password: hashPassword
+       }
+       await admin.update(req.user.id, infor)
+       const thongBao = 'Thay đổi mật khẩu thành công!'
+       res.render('admin/changePassword',{thongBao})
+
+    }else{
+        const thongBao = 'Mật khẩu không chính xác!'
+        res.render('admin/changePassword',{thongBao})
+    }
+    
+
+}
+
 exports.updateiInfor = async (req,res) =>{
 
     const id = req.user.id;

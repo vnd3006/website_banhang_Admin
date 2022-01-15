@@ -11224,6 +11224,7 @@ body.sidebar-toggled footer.sticky-footer {
 .warningLogin {
     margin-bottom: 12px;
     color: red;
+    font-weight: bold;
 }
 
 .titleHello {
