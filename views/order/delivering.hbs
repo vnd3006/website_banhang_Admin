@@ -17,26 +17,29 @@
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
-                <tr>
-                    <th>Email người đặt hàng</th>
-                    <th>Người nhận hàng</th>
+                <tr >
+                    <th >Mã đơn hàng</th>
+                    <th>Tên khách hàng</th>
                     <th>Số điện thoại người nhận hàng</th>
                     <th>Địa chỉ giao hàng</th>
-                    <th>Ngày đặt hàng</th>
-                    <th>Danh sách hàng hóa khách hàng đặt</th>
+                    <th>Lời nhắn</th>
+                    <th>Tổng tiền</th>
+                    <th>Danh sách hàng hóa khách hàng mua</th>
+                    <th>Trạng thái</th>
                 </tr>
               </thead>
               <tbody>
-                {{#if data}}
-                {{#each data}}
+                {{#if datadelivery}}
+                {{#each datadelivery}}
                 <tr>
-                    <th scope="row">{{this.email}}</th>
-                    <td>{{this.nguoiNhan}}</td>
-                    <td>{{this.sdtNguoiNhan}}</td>
-                    <td>{{this.diaChiNhan}}</td>
-                    <td>{{this.time}}</td>
+                    <th scope="row">{{this.id}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.phoneNumber}}</td>
+                    <td>{{this.address}}</td>
+                    <td>{{this.message}}</td>
+                    <td>{{this.totalPrice}}</td>
                     <td><a href="/order/delivery/{{this._id}}">Danh sách mặt hàng</a></td>
-                    <td><a href="/order/deliver/{{this._id}}">Xác nhận đã giao hàng</a></td>
+                    <td><a href="/order/delivered/{{this._id}}">Xác nhận đã giao hàng</a></td>
                 </tr>
                 {{/each}}
                 {{/if}}

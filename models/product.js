@@ -7,6 +7,12 @@ const detail = async (id) => {
   return results[0];
 };
 
+const detailProduct = async (id) => {
+  const results = await dbs.production.collection('product').find({id: id})
+    .toArray();
+  return results[0];
+};
+
 module.exports.list = async () => {
   return await dbs.production.collection('product').find({})
     .toArray();
@@ -25,3 +31,4 @@ module.exports.update = async (id,product) => {
 };
 
 exports.detail = detail;
+exports.detailProduct = detailProduct

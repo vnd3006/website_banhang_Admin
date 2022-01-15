@@ -5,17 +5,24 @@ exports.list = async (req, res, next) => {
     res.render('users/list', { data })
 };
 
+exports.list_active = async (req, res, next) => {
+    const data = await user.list_active();
+    res.render('users/list', { data })
+};
+
 
 exports.lock_list = async (req, res, next) => {
-    const data = await user.list();
+    const data = await user.list_active();
     res.render('users/lock_list', { data })
 };
 
 exports.lock = async (req, res, next) => {
     const id = req.params['id'];
-    const detail = await user.detail(id);
-    await user.addLock(detail);
-    await user.delete(id);
+    const detail = {
+        block: true
+    }
+    await user.addLock(id,detail);
+    // await user.delete(id);
     res.redirect('/users/lock_list');
 };
 
@@ -26,8 +33,10 @@ exports.unlock_list = async (req, res, next) => {
 
 exports.unlock = async (req, res, next) => {
     const id = req.params['id'];
-    const user_lock = await user.user_lock(id);
-    await user.add(user_lock);
-    await user.deleteLock(id);
+    const detail = {
+        block: false
+    }
+    // await user.add(user_lock);
+    await user.deleteLock(id,detail);
     res.redirect('/users/unlock_list');
 };

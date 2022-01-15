@@ -14,10 +14,19 @@ module.exports.delivered = async () => {
 };
 
 module.exports.delivery = async () => {
+    return results = await dbs.production.collection('order').find({status:"Đang xác nhận"})
+        .toArray();
+};
+
+module.exports.delivering = async () => {
     return results = await dbs.production.collection('order').find({status:"Đang giao"})
         .toArray();
 };
 
-module.exports.update = async (id) => {
+module.exports.updateDelevered = async (id) => {
     return await dbs.production.collection('order').updateOne({ _id: ObjectId(id)},{$set: {status:"Đã nhận hàng"}});
+  };
+
+  module.exports.updateDelevering = async (id) => {
+    return await dbs.production.collection('order').updateOne({ _id: ObjectId(id)},{$set: {status:"Đang giao"}});
   };
