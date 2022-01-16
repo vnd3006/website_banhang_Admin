@@ -15,10 +15,12 @@
         "express-flash": "0.0.2",
         "express-hbs": "^2.4.0",
         "express-session": "^1.17.2",
+        "googleapis": "^92.0.0",
         "hbs": "~4.0.4",
         "http-errors": "~1.6.3",
         "mongodb": "^3.2.5",
         "morgan": "^1.9.1",
+        "nodemailer": "^6.7.2",
         "passport": "^0.5.0",
         "passport-local": "^1.0.0",
         "serve-favicon": "^2.5.0"

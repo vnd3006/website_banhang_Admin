@@ -2,6 +2,19 @@ const admin = require('../models/admin');
 const bcrypt = require('bcrypt');
 const passport = require('../auth/passport')
 
+const nodemailer = require("nodemailer");
+const {google} = require('googleapis')
+
+const {dbs} = require ('../dbs')
+
+const CLIENT_ID = '941023280533-iusabrkjoaj6166di7am734rb2simlmt.apps.googleusercontent.com'
+const CLIENT_SECRET = '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'
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+const REFRESH_TOKEN = '1//04p4fukTHdnI8CgYIARAAGAQSNwF-L9IrgOx-_B7-SxTfhhPwaKPLsuFJUnnT2CQAnA5rPZXzVXYVvpO1gErKX8qqC1uICbo9bMA'
+
+
+const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET,REDIRECT_URI)
+oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
 exports.signUp = async (req, res, next) => {
     res.render('admin/signUp')
 };
@@ -18,39 +31,81 @@ exports.list = async (req, res, next) => {
 exports.signUpPost = async (req, res, next) => {
 
     const body=req.body;
+    const token = Math.random().toString(36).substr(2,10);
     const hashPassword = bcrypt.hashSync(body.password, 10); 
     const data = {
         name:body.name,
         email: body.email,
         username:body.username,
-        password:hashPassword
+        password:hashPassword,
+        userToken: token,
+        isVerified: false
     }
+    // let testAccount = await nodemailer.createTestAccount();
+   const accessToken = await oAuth2Client.getAccessToken() 
+
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',// true for 465, false for other ports
+    auth: {
+        type: 'OAuth2',
+        user: 'websitemihishop@gmail.com',
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken: accessToken
+    },
+  });
+
+  // send mail with defined transport object
+  const msg = {
+    from: '"MiHi Shop" <websitemihishop@gmail.com>', // sender address
+    to: `${body.email}`, // list of receivers
+    subject: "verify email required", // Subject line
+    text: `
+    Hello
+    http://${req.headers.host}/admin/verify-email?token=${token}`, // plain text body
+  };
+
+ 
+  const info = await transporter.sendMail(msg)
+
+
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  // Preview only available when sending through an Ethereal account
+
+  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
     const listUser = await admin.list();
     let count = 0;
     let mail = 0;
-        for(let i=0;i<listUser.length;i++){
-            if(listUser[i].username == data.username) {
-                count++;
-                
-                break;
-            }
-            if(listUser[i].email == data.email) {
-                mail++;
-                break;
-            }
+    for(let i=0;i<listUser.length;i++){
+        if(listUser[i].username == data.username) {
+            count++;
+            
+            break;
         }
-        if(count == 0 && mail ==  0){
-            await admin.add(data);
-            res.render('admin/signIn')
+        if(listUser[i].email == data.email) {
+            mail++;
+            break;
         }
-        else if(count == 0 && mail!=0) {
-            const thongBao = 'Email đã tồn tại'
-            res.render('admin/signUp', {thongBao})
-        } else{
-            const thongBao = 'Tên Đăng nhập đã tồn tại'
-            res.render('admin/signUp', {thongBao})
-        }   
+    }
+    if(count == 0 && mail ==  0){
+        await admin.add(data);
+        res.render('admin/signIn')
+    }
+    else if(count == 0 && mail!=0) {
+        const thongBao = 'Email đã tồn tại'
+        res.render('admin/signUp', {thongBao})
+    } else{
+        const thongBao = 'Tên Đăng nhập đã tồn tại'
+        res.render('admin/signUp', {thongBao})
+    }
+    
+    
 };
+
+
 
 
 
@@ -96,6 +151,24 @@ exports.updateiInfor = async (req,res) =>{
     await admin.update(id,infor);
     req.user.name = req.body.name
     res.redirect('/')
+}
+
+
+exports.verifyEmail = async (req,res,next) =>{
+        const account = await dbs.production.collection('admin').findOne({userToken: req.query.token})
+        console.log("============token:",req.query.token)
+        console.log("==================",account)
+        if(!account){
+            const thongBao = 'Token không đúng'
+            return res.render('admin/signIn', {thongBao})
+        }
+        else{
+            account.userToken = null;
+            account.isVerified = true;
+            console.log("==================account",account)
+            return res.render('admin/signIn')
+        }
+        // console.log("==================account",account)
 }
 
 // exports.signInPost = async (req, res, next) => {
