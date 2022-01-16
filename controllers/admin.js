@@ -68,14 +68,7 @@ exports.signUpPost = async (req, res, next) => {
   };
 
  
-  const info = await transporter.sendMail(msg)
-
-
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  // Preview only available when sending through an Ethereal account
-
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+  
     const listUser = await admin.list();
     let count = 0;
     let mail = 0;
@@ -92,7 +85,9 @@ exports.signUpPost = async (req, res, next) => {
     }
     if(count == 0 && mail ==  0){
         await admin.add(data);
-        res.render('admin/signIn')
+        const info = await transporter.sendMail(msg)
+        const thongBao = "Đăng ký thành công, vui lòng kiểm tra email để xác thực tài khoản!"
+        res.render('admin/signIn', {thongBao})
     }
     else if(count == 0 && mail!=0) {
         const thongBao = 'Email đã tồn tại'
@@ -112,9 +107,53 @@ exports.signUpPost = async (req, res, next) => {
 exports.signIn = async (req, res, next) => {
     res.render('admin/signIn', {wrongPassword: req.query.wrongPassword !== undefined})
 };
-
-exports.forgotPassword = async (req, res) =>{
+exports.forgotPassword = async(req,res) =>{
     res.render('admin/forgotPassword')
+}
+exports.forgotPasswordPost = async (req, res) =>{
+    const body=req.body;
+    const account = await dbs.production.collection('admin').findOne({email: body.email})
+    if(!account){
+        const thongBao = "Email không tồn tại!";
+        console.log("================account k tồn tại")
+        res.render('admin/forgotPassword', {thongBao})
+    }
+    else{
+
+        const token = Math.random().toString(36).substr(2,10);
+        const hashPassword = bcrypt.hashSync(token, 10); 
+    
+        const accessToken = await oAuth2Client.getAccessToken() 
+    
+        // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+          service: 'gmail',// true for 465, false for other ports
+          auth: {
+              type: 'OAuth2',
+              user: 'websitemihishop@gmail.com',
+              clientId: CLIENT_ID,
+              clientSecret: CLIENT_SECRET,
+              refreshToken: REFRESH_TOKEN,
+              accessToken: accessToken
+          },
+        });
+      
+        // send mail with defined transport object
+        const msg = {
+          from: '"MiHi Shop" <websitemihishop@gmail.com>', // sender address
+          to: `${body.email}`, // list of receivers
+          subject: "verify email required", // Subject line
+          text: `
+          Mật khẩu mới của bạn là: ${token}`, // plain text body
+        };
+        const info = await transporter.sendMail(msg)
+    
+        const data = { password: hashPassword}
+        
+        
+        await admin.update(account._id, data)
+        res.render('admin/signIn')
+    }
 }
 
 exports.changePassword = async (req,res) =>{
@@ -156,17 +195,18 @@ exports.updateiInfor = async (req,res) =>{
 
 exports.verifyEmail = async (req,res,next) =>{
         const account = await dbs.production.collection('admin').findOne({userToken: req.query.token})
-        console.log("============token:",req.query.token)
-        console.log("==================",account)
         if(!account){
             const thongBao = 'Token không đúng'
             return res.render('admin/signIn', {thongBao})
         }
         else{
-            account.userToken = null;
-            account.isVerified = true;
-            console.log("==================account",account)
-            return res.render('admin/signIn')
+            const infor = {
+                userToken: null,
+                isVerified: true
+            }
+            await admin.update(account._id,infor)
+            console.log("==========verify thanh cong")
+            return res.redirect('admin/signIn')
         }
         // console.log("==================account",account)
 }
