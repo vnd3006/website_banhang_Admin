@@ -1,8 +1,8 @@
 const MongoClient = require('mongodb').MongoClient
 
-var url = "mongodb+srv://admin:admin@salesweb.weofn.mongodb.net/SalesWeb"
+// var url = "mongodb+srv://admin:admin@salesweb.weofn.mongodb.net/SalesWeb"
 
-
+const url = process.env.MONGODB_URL
 var dbs = {production: {}};
 
 function connect(url) {

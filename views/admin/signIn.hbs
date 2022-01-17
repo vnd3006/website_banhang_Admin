@@ -3,6 +3,7 @@
         <div class="card-header">Đăng nhập</div>
         <div class="card-body">
             <form method="post" action="/admin/signIn">
+            <div class="warningLogin">{{thongBao}}</div>
             {{#if wrongPassword}}
             <div class="warningLogin">Tên đăng nhập hoặc mật khẩu không đúng!</div>
             {{/if}}
