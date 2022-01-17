@@ -8,9 +8,11 @@ exports.delivery = async (req, res, next) => {
     const datadelivery = [];
     for(let i = 0;i<data.length;i++){
         let UserName = await users.detailUser(data[i].userId)
+
         let sp ={...data[i],name:UserName.name}
         datadelivery.push(sp)
     }
+
     res.render('order/delivery',{datadelivery})
 };
 exports.delivery_detail = async (req, res, next) => {
@@ -44,17 +46,7 @@ exports.delivered = async (req, res, next) => {
 };
 
 
-// exports.delivered_detail = async (req, res, next) => {
-//     const id = req.params['id'];
-//     const ORDER = await order.detail(id);
-//     const data =[];
-//     const listId = ORDER.listIdProduct;
-//     for(var i=0;i<listId.length;i++){
-//         PRODUCT = await product.detail(ORDER.listIdProduct[i]);
-//         data.push(PRODUCT);
-//     }
-//     res.render('order/detail',{data})
-// };
+
 
 exports.todelevered = async (req, res, next) => { //Giao hàng
     const id = req.params['id'];

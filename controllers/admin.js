@@ -63,8 +63,10 @@ exports.signUpPost = async (req, res, next) => {
     to: `${body.email}`, // list of receivers
     subject: "verify email required", // Subject line
     text: `
-    Hello
-    http://${req.headers.host}/admin/verify-email?token=${token}`, // plain text body
+    Xin chào ${body.name}
+    Vui lòng xác nhận tài khoản bằng cách nhấn vào link bên dưới:
+    http://${req.headers.host}/admin/verify-email?token=${token}
+    `,
   };
 
  

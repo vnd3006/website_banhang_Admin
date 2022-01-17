@@ -23,22 +23,22 @@
                     <th>Giá (VNĐ)</th>
                     <th>Mô tả</th>
                     <th>Giảm giá</th>
-                    <th>Lượt xem</th>
-                    <th>ID Danh mục</th>
+                    <th>Đã bán</th>
+                    <th>Danh mục</th>
                     <th>Chọn</th>
                 </tr>
               </thead>
               <tbody>
-                {{#if data}}
-                {{#each data}}
+                {{#if productData}}
+                {{#each productData}}
                 <tr>
                     <th scope="row">{{this.id}}</th>
                     <td>{{this.name}}</td>   
                     <td>{{this.price}}</td>
                     <td>{{this.content}}</td>
                     <td>{{this.discount}}</td>
-                    <td>{{this.view}}</td>
-                    <td>{{this.catalogId}}</td>
+                    <td>{{this.soldCount}}</td>
+                    <td>{{this.categoryName}}</td>
                     <td><button type="button"><a href="/product/delete/{{this._id}}">Xóa</a></button></td>
                 </tr>
                 {{/each}}

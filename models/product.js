@@ -14,7 +14,7 @@ const detailProduct = async (id) => {
 };
 
 module.exports.list = async () => {
-  return await dbs.production.collection('product').find({})
+  return await dbs.production.collection('product').find({show: true})
     .toArray();
 };
 
@@ -29,6 +29,16 @@ module.exports.delete = async (id) => {
 module.exports.update = async (id,product) => {
   return await dbs.production.collection('product').updateOne({ _id: ObjectId(id)},{$set: product});
 };
+
+module.exports.detailCategory = async (id) => {
+  const results = await dbs.production.collection('category').findOne({id: id})
+  return results;
+};
+
+module.exports.listCategory = async()=>{
+  return await dbs.production.collection('category').find()
+  .toArray();
+}
 
 exports.detail = detail;
 exports.detailProduct = detailProduct

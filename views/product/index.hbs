@@ -24,12 +24,12 @@
                     <th>Mô tả</th>
                     <th>Giảm giá</th>
                     <th>Đã bán</th>
-                    <th>ID Danh mục</th>
+                    <th>Danh mục</th>
                 </tr>
               </thead>
               <tbody>
-                {{#if data}}
-                {{#each data}}
+                {{#if productData}}
+                {{#each productData}}
                 <tr>
                     <th scope="row">{{this.id}}</th>
                     <td>{{this.name}}</td>   
@@ -37,7 +37,7 @@
                     <td>{{this.content}}</td>
                     <td>{{this.discount}}</td>
                     <td>{{this.soldCount}}</td>
-                    <td>{{this.categoryId}}</td>
+                    <td>{{this.categoryName}}</td>
                 </tr>
                 {{/each}}
                 {{/if}}
