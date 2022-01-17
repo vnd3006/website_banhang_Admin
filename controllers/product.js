@@ -34,6 +34,20 @@ exports.add = (req, res, next) => {
 };
 
 exports.addPost = async (req, res, next) => {
+    const img = [];
+    img.push(req.body.imageLink1)
+    if(req.body.imageLink2 != '')
+    {
+
+        img.push(req.body.imageLink2)
+    }
+    if(req.body.imageLink3!= '')
+    {
+
+        img.push(req.body.imageLink3)
+    }
+
+    
     const data = {
         id:req.body.id,
         categoryId:req.body.categoryId,
@@ -45,7 +59,7 @@ exports.addPost = async (req, res, next) => {
         rateCount: Number(0),
         rate: [],
         comment: [],
-        imageLink:req.body.imageLink,
+        imageLink:img,
         show: true,
     }
     await product.add(data);
@@ -117,14 +131,37 @@ exports.update = async (req, res, next) => {
 exports.edit = async (req, res, next) => {
     const id = req.params['id'];
     const dataProduct = await product.detail(id);
+    if(dataProduct.imageLink.length == 2){
+        imageLink2 = dataProduct.imageLink[1]
+        imageLink3 =''
+    }else if(dataProduct.imageLink.length == 3){
+        imageLink2 = dataProduct.imageLink[1]
+        imageLink3 = dataProduct.imageLink[2]
+    }
+    else{
+        imageLink2 = ''
+        imageLink3 = ''
+    }
     const category = await product.detailCategory(dataProduct.categoryId)
     const discount = dataProduct.discount * 100
-    const data = {...dataProduct,nameCategory: category.name, displaydiscount: discount}
+    const data = {...dataProduct,nameCategory: category.name, displaydiscount: discount, imageLink1: dataProduct.imageLink[0], imageLink2: imageLink2, imageLink3: imageLink3}
     res.render('product/edit',{ data });
 };
 
 exports.updatePost = async (req, res, next) => {
     const id = req.params['id'];
+    const img = [];
+    img.push(req.body.imageLink1)
+    if(req.body.imageLink2 != '')
+    {
+
+        img.push(req.body.imageLink2)
+    }
+    if(req.body.imageLink3!= '')
+    {
+
+        img.push(req.body.imageLink3)
+    }
     const data = {
         name:req.body.name,
         categoryId:req.body.categoryId,
@@ -132,7 +169,7 @@ exports.updatePost = async (req, res, next) => {
         price:Number(req.body.price),
         discount:Number(req.body.discount/100),
         content:req.body.content,
-        imageLink:req.body.imageLink
+        imageLink:img
     }
     await product.update(id,data);
     res.redirect('../update');
