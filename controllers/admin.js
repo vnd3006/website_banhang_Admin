@@ -152,9 +152,9 @@ exports.forgotPasswordPost = async (req, res) =>{
     
         const data = { password: hashPassword}
         
-        
+        const thongBao = "Vui lòng kiểm tra email để lấy mật khẩu!"
         await admin.update(account._id, data)
-        res.render('admin/signIn')
+        res.render('admin/signIn',{thongBao})
     }
 }
 
