@@ -59,7 +59,7 @@ exports.addPost = async (req, res, next) => {
         rateCount: Number(0),
         rate: [],
         comment: [],
-        imageLink:img,
+        imagesList:img,
         show: true,
     }
     await product.add(data);
@@ -131,7 +131,7 @@ exports.update = async (req, res, next) => {
 exports.edit = async (req, res, next) => {
     const id = req.params['id'];
     const dataProduct = await product.detail(id);
-    if(dataProduct.imageLink.length == 2){
+    if(dataProduct.imagesList.length == 2){
         imageLink2 = dataProduct.imageLink[1]
         imageLink3 =''
     }else if(dataProduct.imageLink.length == 3){
@@ -169,7 +169,7 @@ exports.updatePost = async (req, res, next) => {
         price:Number(req.body.price),
         discount:Number(req.body.discount/100),
         content:req.body.content,
-        imageLink:img
+        imagesList:img
     }
     await product.update(id,data);
     res.redirect('../update');
